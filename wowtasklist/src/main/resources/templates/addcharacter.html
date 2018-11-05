@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<head>
+    <title>Add Character</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Add Character</h1>
+	<div>
+		<form th:object="${character}" th:action="@{save}" action="#" method="post">
+		
+		  	<label for="name">Name</label>
+			<input type="text" id="name" th:field="*{name}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="className">Class</label>
+			<input type="text" id="className" th:field="*{className}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+		
+		  	<label for="level">Level</label>
+			<input type="text" id="level" th:field="*{level}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="ilvl">Item Level</label>
+			<input type="text" id="ilvl" th:field="*{ilvl}" />
+    		
+			<div style="clear: both; display: block; height: 10px; width: 100px"></div>
+			
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>

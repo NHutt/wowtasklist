@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<head>
+    <title>Add Task</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Add task</h1>
+	<div>
+		<form th:object="${task}" th:action="@{save}" action="#" method="post">
+		
+		  	<label for="description">Description</label>
+			<input type="text" id="description" th:field="*{description}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="levelreq">Required character level</label>
+			<input type="text" id="levelreq" th:field="*{levelreq}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+		
+		  	<label for="status">Status</label>
+			<input type="text" id="status" th:field="*{status}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="zone">Zone</label>
+			<input type="text" id="zone" th:field="*{zone}" />
+			
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<label for="characterList">Character</label>
+			
+			<div style="width: 200px">
+				<select id="characterList" th:field="*{character}" class="form-control">
+	       			<option th:each="character: ${characters}" th:value="${character.characterId}" th:text="${character.name}"></option>
+	    		</select>
+    		</div>
+    		
+			<div style="clear: both; display: block; height: 10px; width: 100px"></div>
+			
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>
