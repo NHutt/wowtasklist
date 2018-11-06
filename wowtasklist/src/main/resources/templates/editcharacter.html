@@ -1,15 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
 <head>
-    <title>Add Character</title>
+    <title>Edit character</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Add Character</h1>
+
+	<h1>Edit character</h1>
 	<div>
-		<form th:object="${character}" th:action="@{savecharacter}" action="#" method="post">
+		<form th:object="${character}" th:action="@{/savecharacter}" action="#" method="post">
 		
+		  	<input type="hidden" id="characterId" th:field="*{characterId}" />
+		  	
 		  	<label for="name">Name</label>
 			<input type="text" id="name" th:field="*{name}" />
 			

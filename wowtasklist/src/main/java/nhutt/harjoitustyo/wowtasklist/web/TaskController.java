@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import nhutt.harjoitustyo.wowtasklist.domain.CharacterRepository;
 import nhutt.harjoitustyo.wowtasklist.domain.Task;
 import nhutt.harjoitustyo.wowtasklist.domain.TaskRepository;
+import nhutt.harjoitustyo.wowtasklist.domain.Zone;
+import nhutt.harjoitustyo.wowtasklist.domain.ZoneRepository;
 
 @Controller
 public class TaskController {
@@ -25,6 +27,9 @@ public class TaskController {
 	
 	@Autowired
 	private CharacterRepository characterRepository;
+	
+	@Autowired
+	private ZoneRepository zoneRepository;
 
 	
 	// Sisäänkirjautuminen
@@ -75,10 +80,29 @@ public class TaskController {
         return "addtask";
     }  
 	
-	/** tallentaa tehtävän tiedot ja palaa listaukseen **/
+	/** tallentaa uuden tai päivitettävän tehtävän tiedot ja palaa listaukseen **/
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Task task){
-        taskRepository.save(task);
+    	
+    	Zone zone = task.getZone();
+    	List<Zone> searchResults = zoneRepository.findByName(zone.getName());
+    	
+    	if(searchResults.size() != 0) { //Zone löytyy jo kannasta
+    		
+    		task.setZone(searchResults.get(0));
+    		taskRepository.save(task);
+    		
+    	}else { //Zonea ei löytynyt, luodaan uusi Zone
+    		
+    		System.out.println("zonea ei löydy ");
+    		zoneRepository.save(zone);
+    		taskRepository.save(task);
+    	}
+    	
+    	//etsi käyttäjän syöttämä zone
+    	//jos ei löydy pitää lisätä uusi
+    	//pyydä zonen id 
+    	
         return "redirect:tasklist";
     }  
 	
@@ -86,6 +110,7 @@ public class TaskController {
 	@RequestMapping(value = "/edit/{id}")
     public String editTask(@PathVariable("id") Long taskId, Model model) {
     	model.addAttribute("task", taskRepository.findById(taskId));
+    	model.addAttribute("characters", characterRepository.findAll());
         return "edittask";
     }  
 
