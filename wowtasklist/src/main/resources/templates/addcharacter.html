@@ -1,37 +1,38 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="css/tyylit.css)" th:href="@{css/tyylit.css}">
 <head>
     <title>Add Character</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<body style="text-align: center" background="images/vol'dun.jpg">
+	<div style="display: inline-block; position: center;" class="boxi">
 	<h1>Add Character</h1>
 	<div>
-		<form th:object="${character}" th:action="@{savecharacter}" action="#" method="post">
-		
-		  	<label for="name">Name</label>
-			<input type="text" id="name" th:field="*{name}" />
-			
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="className">Class</label>
-			<input type="text" id="className" th:field="*{className}" />
-			
-			<div style="clear: both; display: block; height: 10px;"></div>
-		
-		  	<label for="level">Level</label>
-			<input type="text" id="level" th:field="*{level}" />
-			
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="ilvl">Item Level</label>
-			<input type="text" id="ilvl" th:field="*{ilvl}" />
-    		
-			<div style="clear: both; display: block; height: 10px; width: 100px"></div>
-			
+		<form th:object="${character}" th:action="@{/savecharacter}" action="#" method="post">
+			<table>
+			<tr>
+			  	<td><label for="name">Name</label></td>
+				<td><input type="text" style="margin-left:20px; margin-right:20px" id="name" th:field="*{name}" /></td>
+				<td th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Please fill this field</td>
+			</tr>
+			<tr>
+				<td><label for="className">Class</label></td>
+				<td><input type="text" style="margin-left:20px; margin-right:20px" id="className" th:field="*{className}" /></td>
+			<tr>
+			  	<td><label for="level">Level</label></td>
+				<td><input type="text" style="margin-left:20px; margin-right:20px" id="level" th:field="*{level}" /></td>
+			</tr>
+			<tr>
+				<td><label for="ilvl">Item Level</label></td>
+				<td><input type="text" style="margin-left:20px; margin-right:20px" id="ilvl" th:field="*{ilvl}" /></td>
+    		</tr>
+				
+			</table>
 			<input type="submit" value="Save"></input>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

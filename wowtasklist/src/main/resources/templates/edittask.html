@@ -1,13 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="css/tyylit.css)" th:href="@{css/tyylit.css}">
+
 <head>
     <title>Edit task</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
-	<h1>Edit task</h1>
+	<h1 class="h1">Edit task</h1>
 	<div>
 		<form th:object="${task}" th:action="@{/save}" action="#" method="post">
 		

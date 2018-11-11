@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @Entity
 public class Character {
@@ -16,9 +19,14 @@ public class Character {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long characterId;
 	
+	@NotBlank
+	@Size(min=3,max=10)
 	private String name;
+	
 	private String className;
+	
 	private int level;
+	
 	private int ilvl;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "character")

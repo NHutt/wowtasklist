@@ -3,10 +3,13 @@ package nhutt.harjoitustyo.wowtasklist.web;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,7 +85,10 @@ public class TaskController {
 	
 	/** tallentaa uuden tai päivitettävän tehtävän tiedot ja palaa listaukseen **/
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Task task){
+    public String save(@Valid Task task, BindingResult bindingResult){
+    	if (bindingResult.hasErrors()) {
+    		return "addtask";
+    	}
     	
     	Zone zone = task.getZone();
     	List<Zone> searchResults = zoneRepository.findByName(zone.getName());
@@ -94,14 +100,9 @@ public class TaskController {
     		
     	}else { //Zonea ei löytynyt, luodaan uusi Zone
     		
-    		System.out.println("zonea ei löydy ");
     		zoneRepository.save(zone);
     		taskRepository.save(task);
     	}
-    	
-    	//etsi käyttäjän syöttämä zone
-    	//jos ei löydy pitää lisätä uusi
-    	//pyydä zonen id 
     	
         return "redirect:tasklist";
     }  

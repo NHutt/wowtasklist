@@ -2,10 +2,13 @@ package nhutt.harjoitustyo.wowtasklist.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,9 +49,14 @@ public class CharacterController {
 	
 	/** tallentaa hahmon tiedot ja palaa listaukseen **/
     @RequestMapping(value = "/savecharacter", method = RequestMethod.POST)
-    public String saveCharacter(Character character){
+    public String saveCharacter(@Valid Character character, BindingResult bindingResult){
+    	if (bindingResult.hasErrors()) {
+    		return "addcharacter";
+    	}
+    	
         characterRepository.save(character);
         return "redirect:characterlist";
+
     }  
     
     /** palauttaa tietyn hahmon editointisivun **/

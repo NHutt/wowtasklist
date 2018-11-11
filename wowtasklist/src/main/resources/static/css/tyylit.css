@@ -36,11 +36,43 @@
 	src: url("fonts/noway-regular-webfont.otf");
 }
 
+@font-face {
+	font-family: "Ludicrous";
+	src: url("fonts/Ludicrous.ttf");
+}
+
+@font-face {
+	font-family: "TragicMarker";
+	src: url("fonts/TragicMarker.otf");
+}
+
+@font-face {
+	font-family: "Virtuous-Slab";
+	src: url("fonts/Virtuous-Slab.otf");
+}
+
+@font-face {
+	font-family: "Wish";
+	src: url("fonts/wish.ttf");
+}
+
+@font-face {
+	font-family: "Yikes";
+	src: url("fonts/Yikes_medium.ttf");
+}
+
+@font-face {
+	font-family: "Lemonberry";
+	src: url("fonts/Lemonberry.otf");
+}
+
 .h1 {
 	
 	font-family: "Bakery";
-	src: url("fonts/bakery.ttf");
 	font-size:235px;
+	margin-bottom: -140px;
+	margin-left: 200px;
+	margin-top: 70px;
 	
 
 
@@ -49,12 +81,13 @@
 
 .h3 {
 	
-	font-family: "Noway";
-	src: url("fonts/noway-regular-webfont.otf");
-	font-size:50px;
+	font-family: "Ludicrous";
+	font-size:30px;
 	font-color: white;
-	margin-left: 500px;
-	margin-top: 250px;
+	float: right;
+	margin-top: 100px;
+	margin-right: 200px;
+	padding-bottom: 30px;
 }
 
 .signout {
@@ -77,6 +110,13 @@
 input[type="submit"]:hover {
 	background: #111;
 	outline: none;
+}
+
+.label {
+	
+	font-family: "Yikes" !important;
+	font-size: 18px;
+	font-color: "black";
 }
 
 

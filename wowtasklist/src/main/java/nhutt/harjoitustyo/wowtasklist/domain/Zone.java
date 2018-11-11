@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Zone {
@@ -16,6 +18,8 @@ public class Zone {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long zoneId;
 	
+	@NotBlank
+	@Size(min=3,max=50)
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "zone")

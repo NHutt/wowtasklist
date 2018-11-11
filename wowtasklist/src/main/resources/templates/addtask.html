@@ -1,47 +1,73 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="css/tyylit.css)" th:href="@{css/tyylit.css}">
 <head>
     <title>Add Task</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
+<body style="text-align: center" background="images/vol'dun.jpg">
+	<div style="display: inline-block; position: center;" >
+	<div class="boxi">
 	<h1>Add task</h1>
 	<div>
-		<form th:object="${task}" th:action="@{save}" action="#" method="post">
+		<form th:object="${task}" th:action="@{/save}" action="#" method="post">
 		
-		  	<label for="description">Description</label>
-			<input type="text" id="description" th:field="*{description}" />
-			
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
-			<label for="levelreq">Required character level</label>
-			<input type="text" id="levelreq" th:field="*{levelreq}" />
-			
-			<div style="clear: both; display: block; height: 10px;"></div>
+		<div style="clear: both; display: block; height: 30px; width: 100px"></div>
 		
-		  	<label for="status">Status</label>
-			<input type="text" id="status" th:field="*{status}" />
+		<table>
+			<tr>
+		  		<td><label for="description">Description</label><td>
+		  	</tr>
+		  	<tr>
+				  	<td>
+				  	<textarea rows="4" cols="50" name="description" th:field="*{description}" id="decription"></textarea>
+				  	</td>
+			</tr>
 			
-			<div style="clear: both; display: block; height: 10px;"></div>
+			<tr><td th:if="${#fields.hasErrors('description')}"th:errors="*{description}"></td></tr>
+
+			<tr><td><a><br></a></td></tr>
+			<tr>
+				<td><label for="levelreq">Required character level</label></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="levelreq" th:field="*{levelreq}" /></td>
+			</tr>
+			<tr><td><a><br></a></td></tr>
+			<tr>
+		  		<td><label for="status">Status</label></td>
+		  	</tr>
+		  	<tr>
+				<td><input type="text" id="status" th:field="*{status}" /></td>
+			</tr>
+			<tr><td><a><br></a></td></tr>
+			<tr>
+				<td><label for="zone">Zone</label></td>
+			</tr>
+			<tr>
+				<td><input type="text" id="zone" th:field="*{zone.name}" /></td>
+				
+			</tr>
+			<tr><td><a><br></a></td></tr>
 			
-			<label for="zone">Zone</label>
-			<input type="text" id="zone" th:field="*{zone}" />
+		</table>
 			
-			<div style="clear: both; display: block; height: 10px;"></div>
+		<label for="characterList">Character</label><br>
 			
-			<label for="characterList">Character</label>
-			
-			<div style="width: 200px">
-				<select id="characterList" th:field="*{character}" class="form-control">
-	       			<option th:each="character: ${characters}" th:value="${character.characterId}" th:text="${character.name}"></option>
-	    		</select>
-    		</div>
+		<div style="width: 200px; display: inline-block;">
+			<select id="characterList" th:field="*{character}" class="form-control">
+	       		<option th:each="character: ${characters}" th:value="${character.characterId}" th:text="${character.name}"></option>
+	    	</select>
+    	</div>
     		
-			<div style="clear: both; display: block; height: 10px; width: 100px"></div>
+		<div style="clear: both; display: block; height: 30px; width: 100px"></div>
 			
-			<input type="submit" value="Save"></input>
+		<input type="submit" value="Save"></input>
+		
 		</form>
+	</div>
+	</div>
 	</div>
 </body>
 </html>
