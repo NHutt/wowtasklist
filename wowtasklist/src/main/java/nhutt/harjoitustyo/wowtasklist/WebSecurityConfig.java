@@ -23,10 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		.authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
-		.and()
-		.authorizeRequests()
-		.antMatchers("/", "tasks", "tasks/{id}", "tasklist", "delete/{id}", "add", "save", "edit/{id}").permitAll()
+		.authorizeRequests().antMatchers("/css/**", "/", "/tasklist", "/tasks", "/tasks/{id}", "/characters",
+				"/characterlist").permitAll() // Enable css when logged out
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
