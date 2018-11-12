@@ -19,8 +19,8 @@ public class Character {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long characterId;
 	
-	@NotBlank
-	@Size(min=3,max=10)
+	@NotBlank(message="Please add a name :)")
+	@Size(min=3,max=12)
 	private String name;
 	
 	private String className;

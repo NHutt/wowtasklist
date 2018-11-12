@@ -1,42 +1,163 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/tyylit.css)"
+	th:href="@{/css/tyylit.css}">
+
+<style>
+@font-face {
+	font-family: Bakery;
+	src: url('/fonts/bakery.ttf');
+}
+
+@font-face {
+	font-family: Rentukka;
+	src: url('/fonts/Rentukka.otf');
+}
+
+@font-face {
+	font-family: "Ludicrous";
+	src: url("/fonts/Ludicrous.ttf");
+}
+
+@font-face {
+	font-family: "TragicMarker";
+	src: url("/fonts/TragicMarker.otf");
+}
+
+@font-face {
+	font-family: "Yikes";
+	src: url("/fonts/Yikes_medium.ttf");
+}
+
+body {
+    background-image: url("/images/vol'dun.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+</style>
+
 <head>
-    <title>Characters</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>WoW Tasklist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<div class="col-md-4">
-		<h1>Characters</h1>
+
+	<ul>
+		<li><a href="/tasklist">Tasks</a></li>
+		<li><a sec:authorize="hasAuthority('ADMIN')" href="/addcharacter">New
+				character</a></li>
+	</ul>
+	<ul>
+		<li sec:authorize="hasAuthority('ADMIN')">
+			<form th:action="@{/logout}" method="post" class="signout">
+				<input type="submit" value="Sign Out " class="signout" />
+			</form>
+		</li>
+
+	</ul>
+
+	<ul>
+		<li sec:authorize="hasAuthority('ADMIN') == false">
+			<form th:action="@{/login}" method="get" class="signout">
+				<input type="submit" value="Sign In" class="signout" />
+			</form>
+		</li>
+	</ul>
+
+	<div class="boxi">
+
+
+
+		<div>
+			<h1 class="h1">Characters</h1>
+		</div>
+
+		<div>
+			<h3 class="h3" th:inline="text">Gotta level 'em all</h3>
+		</div>
+
+		<table id="characterTable" class="table">
+			<tr class="warning">
+				<th onclick="sortTable(0)">Name<i class="fa fa-fw fa-sort"></i></th>
+				<th onclick="sortTable(1)">Class<i class="fa fa-fw fa-sort"></i></th>
+				<th onclick="sortTable(2)">Level<i class="fa fa-fw fa-sort"></i></th>
+				<th onclick="sortTable(3)">Item Level<i class="fa fa-fw fa-sort"></i></th>
+				<th sec:authorize="hasAuthority('ADMIN')"></th>
+				<th sec:authorize="hasAuthority('ADMIN')"></th>
+			</tr>
+			<tr class="danger" th:each="character : ${characters}">
+				<td th:text="${character.name}"></td>
+	    		<td th:text="${character.className}"></td>
+	    		<td th:text="${character.level}"></td>
+	    		<td th:text="${character.ilvl}"></td>
+	    		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editcharacter/{id}(id=${character.characterId})}" class="btn btn-warning">Edit</a></td>
+	 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletecharacter/{id}(id=${character.characterId})}" class="btn btn-danger"
+	 			onclick="return confirm('Are you sure you want to delete this character?')">Delete</a></td>   
+			</tr>
+		</table>
 	</div>
-	<div class="col-md-4">
-		<h3 th:inline="text">Welcome[[ ${#httpServletRequest.remoteUser}]]!</h3>
-	</div>
-	<div sec:authorize="hasAuthority('ADMIN')" class="col-md-4" style="padding:20px 0">
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" class="btn btn-danger"/>
-		</form>
-	</div>
-    <table class="table table-striped">
-		<tr>
-		    <th>Name</th>
-		    <th>Class</th>
-		    <th>Level</th>
-		    <th>Item Level</th>
-		    <th sec:authorize="hasAuthority('ADMIN')"></th>
-		    <th sec:authorize="hasAuthority('ADMIN')"></th>
-		</tr>  
-    	<tr th:each = "character : ${characters}">
-    		<td th:text="${character.name}"></td>
-    		<td th:text="${character.className}"></td>
-    		<td th:text="${character.level}"></td>
-    		<td th:text="${character.ilvl}"></td>
-    		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editcharacter/{id}(id=${character.characterId})}" class="btn btn-warning">Edit</a></td>
- 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletecharacter/{id}(id=${character.characterId})}" class="btn btn-danger">Delete</a></td>   
- 			 		
-    	</tr>
-     </table>
-	 <a href="/tasklist" class="btn btn-success">Back</a> 	
-	 <a sec:authorize="hasAuthority('ADMIN')" href="/addcharacter" class="btn btn-success">New Character</a> 
 </body>
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("characterTable");
+  switching = true;
+  // Asetetaan järjestys nousevaksi:
+  dir = "asc"; 
+  /* Tehdään looppi, joka jatkaa, kunnes 
+  	vaihtoja ei enää ole tapahtunut */
+  while (switching) {
+    // Aloitetaan sanomalla, että vaihtoja ei ole tehty
+    switching = false;
+    rows = table.rows;
+    /* Loopataan kaikki rivit läpi */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Vaihtamista ei pitäisi tapahtua
+      shouldSwitch = false;
+      /* Valitaan kaksi elementtiä vertailtavaksi */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Tarkistetaan, pitäisikö elementtien vaihtaa paikkaa
+      	 suunnan mukaan */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // Jos pitää, merkitään vaihto ja lopetetaan looppi
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // Jos pitää, merkitään vaihto ja lopetetaan looppi
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* Jos vaihto on merkattu, tehdään vaihto 
+      	 ja merkataan se tehdyksi */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Tämä countteri laskee tehdyt vaihdot:
+      switchcount ++; 
+    } else {
+        /* Jos vaihtamista ei ole tehty ja järjestys on nouseva,
+     	 käännetään suunta laskevaksi ja ajetaan looppi uudelleen*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
 </html>

@@ -1,71 +1,136 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" href="css/tyylit.css)" th:href="@{css/tyylit.css}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/tyylit.css)"
+	th:href="@{/css/tyylit.css}">
+
+<style>
+@font-face {
+	font-family: Bakery;
+	src: url('/fonts/bakery.ttf');
+}
+
+@font-face {
+	font-family: Rentukka;
+	src: url('/fonts/Rentukka.otf');
+}
+
+@font-face {
+	font-family: "Ludicrous";
+	src: url("/fonts/Ludicrous.ttf");
+}
+
+@font-face {
+	font-family: "TragicMarker";
+	src: url("/fonts/TragicMarker.otf");
+}
+
+@font-face {
+	font-family: "Yikes";
+	src: url("/fonts/Yikes_medium.ttf");
+}
+
+body {
+    background-image: url("/images/vol'dun.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+</style>
+
 <head>
-    <title>Add Task</title>
+    <title>WoW Tasklist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body style="text-align: center" background="images/vol'dun.jpg">
-	<div style="display: inline-block; position: center;" >
+<body>
+
+	<ul>
+		<li><a href="/tasklist">Tasks</a></li>
+		<li><a href="/characterlist">Characters</a></li>
+	</ul>
+	<ul>
+		<li sec:authorize="hasAuthority('ADMIN')">
+			<form th:action="@{/logout}" method="post" class="signout">
+				<input type="submit" value="Sign Out " class="signout" />
+			</form>
+		</li>
+
+	</ul>
+
+	<ul>
+		<li sec:authorize="hasAuthority('ADMIN') == false">
+			<form th:action="@{/login}" method="get" class="signout">
+				<input type="submit" value="Sign In" class="signout" />
+			</form>
+		</li>
+	</ul>
+	
 	<div class="boxi">
-	<h1>Add task</h1>
+
+
+
+		<div>
+			<h1 class="h1">New Task</h1>
+		</div>
+		<div>
+			<h3 class="h3" th:inline="text">Busy, busy!</h3>
+		</div>
+		
+		<div style="clear: both; display: block; height: 10px; width: 100px"></div>
+	
+
+<div class="pikkuboxi" style="text-align:center">
+	<div style="display: inline-block; text-align: center; justify-content: center" >
+	
 	<div>
 		<form th:object="${task}" th:action="@{/save}" action="#" method="post">
 		
 		<div style="clear: both; display: block; height: 30px; width: 100px"></div>
 		
-		<table>
-			<tr>
-		  		<td><label for="description">Description</label><td>
-		  	</tr>
-		  	<tr>
-				  	<td>
-				  	<textarea rows="4" cols="50" name="description" th:field="*{description}" id="decription"></textarea>
-				  	</td>
-			</tr>
+			<div class="form-group">
+				<label for="description">Description</label>
+				<textarea rows="4" cols="50" name="description" th:field="*{description}" id="decription"></textarea>
+				<a th:if="${#fields.hasErrors('description')}"th:errors="*{description}"></a>
+			</div>
 			
-			<tr><td th:if="${#fields.hasErrors('description')}"th:errors="*{description}"></td></tr>
-
-			<tr><td><a><br></a></td></tr>
-			<tr>
-				<td><label for="levelreq">Required character level</label></td>
-			</tr>
-			<tr>
-				<td><input type="text" id="levelreq" th:field="*{levelreq}" /></td>
-			</tr>
-			<tr><td><a><br></a></td></tr>
-			<tr>
-		  		<td><label for="status">Status</label></td>
-		  	</tr>
-		  	<tr>
-				<td><input type="text" id="status" th:field="*{status}" /></td>
-			</tr>
-			<tr><td><a><br></a></td></tr>
-			<tr>
-				<td><label for="zone">Zone</label></td>
-			</tr>
-			<tr>
-				<td><input type="text" id="zone" th:field="*{zone.name}" /></td>
-				
-			</tr>
-			<tr><td><a><br></a></td></tr>
 			
-		</table>
+			<div style="display: inline-block; text-align: center; justify-content: center">
+			<div class="form-group">
+				<label for="levelreq">Required character level</label>
+				<input type="text" class="form-control" id="levelreq" th:field="*{levelreq}" />
+			</div>
 			
-		<label for="characterList">Character</label><br>
+			<div class="form-group">
+				<label for="status">Status</label>
+				<input type="text" class="form-control" id="status" th:field="*{status}" />
+			</div>
 			
-		<div style="width: 200px; display: inline-block;">
-			<select id="characterList" th:field="*{character}" class="form-control">
-	       		<option th:each="character: ${characters}" th:value="${character.characterId}" th:text="${character.name}"></option>
-	    	</select>
-    	</div>
+			<div class="form-group">
+				<label for="zone">Zone</label>
+				<input type="text" class="form-control" id="zone" th:field="*{zone.name}" />
+			</div>
+			
+			<div class="form-group">
+				<label for="characterList">Character</label>
+				<select id="characterList" th:field="*{character}" class="form-control">
+		       		<option th:each="character: ${characters}" th:value="${character.characterId}" th:text="${character.name}"></option>
+		    	</select>
+    		</div>
+    		</div>
     		
 		<div style="clear: both; display: block; height: 30px; width: 100px"></div>
 			
-		<input type="submit" value="Save"></input>
+		<button type="submit" class="btn btn-primary btn-lg">Save</button>
+		
+		<div style="clear: both; display: block; height: 30px; width: 100px"></div>
 		
 		</form>
+	</div>
 	</div>
 	</div>
 	</div>

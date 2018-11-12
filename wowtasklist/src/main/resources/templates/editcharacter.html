@@ -1,40 +1,133 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css" th:href="@{../css/bootstrap.min.css}" />
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/tyylit.css)"
+	th:href="@{/css/tyylit.css}">
+
+<style>
+@font-face {
+	font-family: Bakery;
+	src: url('/fonts/bakery.ttf');
+}
+
+@font-face {
+	font-family: Rentukka;
+	src: url('/fonts/Rentukka.otf');
+}
+
+@font-face {
+	font-family: "Ludicrous";
+	src: url("/fonts/Ludicrous.ttf");
+}
+
+@font-face {
+	font-family: "TragicMarker";
+	src: url("/fonts/TragicMarker.otf");
+}
+
+@font-face {
+	font-family: "Yikes";
+	src: url("/fonts/Yikes_medium.ttf");
+}
+
+body {
+    background-image: url("/images/vol'dun.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+</style>
+
 <head>
-    <title>Edit character</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>WoW Tasklist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
-	<h1>Edit character</h1>
+	<ul>
+		<li><a href="/tasklist">Tasks</a></li>
+		<li><a href="/characterlist">Characters</a></li>
+	</ul>
+	<ul>
+		<li sec:authorize="hasAuthority('ADMIN')">
+			<form th:action="@{/logout}" method="post" class="signout">
+				<input type="submit" value="Sign Out " class="signout" />
+			</form>
+		</li>
+
+	</ul>
+
+	<ul>
+		<li sec:authorize="hasAuthority('ADMIN') == false">
+			<form th:action="@{/login}" method="get" class="signout">
+				<input type="submit" value="Sign In" class="signout" />
+			</form>
+		</li>
+	</ul>
+
+	<div class="boxi">
+
+
+
+		<div>
+			<h1 class="h1">Edit Character</h1>
+		</div>
+		<div>
+			<h3 class="h3" th:inline="text">Any progress?</h3>
+		</div>
+		
+		<div style="clear: both; display: block; height: 10px; width: 100px"></div>
+
+	<div class="pikkuboxi" style="text-align:center">
+		<div style="display: inline-block; text-align: center; justify-content: center" >
+	
 	<div>
 		<form th:object="${character}" th:action="@{/savecharacter}" action="#" method="post">
 		
-		  	<input type="hidden" id="characterId" th:field="*{characterId}" />
-		  	
-		  	<label for="name">Name</label>
-			<input type="text" id="name" th:field="*{name}" />
+			<div style="clear: both; display: block; height: 30px; width: 100px"></div>
 			
-			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="hidden" id="characterId" th:field="*{characterId}" />
 			
+			<div class="form-group">
+			<label for="name">Name</label>
+			<input type="text" class="form-control" id="name" th:field="*{name}" />
+			<a th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Please fill this field</a>
+			</div>
+
+			<div class="form-group">
 			<label for="className">Class</label>
-			<input type="text" id="className" th:field="*{className}" />
+			<input type="text" class="form-control" id="className" th:field="*{className}" />
+			</div>
 			
-			<div style="clear: both; display: block; height: 10px;"></div>
-		
-		  	<label for="level">Level</label>
-			<input type="text" id="level" th:field="*{level}" />
+			<div class="form-group">
+			<label for="level">Level</label>
+			<input type="text" class="form-control" id="level" th:field="*{level}" />
+			</div>
 			
-			<div style="clear: both; display: block; height: 10px;"></div>
-			
+			<div class="form-group">
 			<label for="ilvl">Item Level</label>
-			<input type="text" id="ilvl" th:field="*{ilvl}" />
-    		
-			<div style="clear: both; display: block; height: 10px; width: 100px"></div>
+			<input type="text" class="form-control" id="ilvl" th:field="*{ilvl}" />
+			</div>
+
+			<div style="clear: both; display: block; height: 30px; width: 100px"></div>
+
+			<button type="submit" class="btn btn-primary btn-lg">Save</button>
 			
-			<input type="submit" value="Save"></input>
+			<div style="clear: both; display: block; height: 30px; width: 100px"></div>
+
 		</form>
+		</div>
 	</div>
+	</div>
+	</div>
+
+
+
 </body>
-</html>
+		  	

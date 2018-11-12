@@ -1,20 +1,62 @@
 @charset "ISO-8859-1";
 
+
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-family: Rentukka;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+	background-color: #111;
+	color: white;
+	text-decoration: none;
+}
+
 .boxi {
-    width: 80%;
-    background-color: rgba(158, 116, 116, 0.47);
+	width: 80%;
+	background-color: rgba(158, 116, 116, 0.47);
 	margin: auto;
 	padding: 20px;
 	margin-top: 50px;
 	border-radius: 10px;
 	padding-top: 20px;
+	margin-bottom: 50px;
+}
+
+.pikkuboxi{
 	
-} 
+	width: 50%;
+	background-color: #F2DEDF;
+	margin: auto;
+	padding: 20px;
+	margin-top: 20px;
+	border-radius: 10px;
+	padding-top: 20px;
+	margin-bottom:50px;
+	
+	
+}
 
 .table {
-	
 	border-radius: 10px;
-	
 }
 
 .btn {
@@ -67,22 +109,16 @@
 }
 
 .h1 {
-	
 	font-family: "Bakery";
-	font-size:235px;
+	font-size: 235px;
 	margin-bottom: -140px;
 	margin-left: 200px;
 	margin-top: 70px;
-	
-
-
-
 }
 
 .h3 {
-	
 	font-family: "Ludicrous";
-	font-size:30px;
+	font-size: 30px;
 	font-color: white;
 	float: right;
 	margin-top: 100px;
@@ -91,37 +127,22 @@
 }
 
 .signout {
-	
-	position:fixed;
-   	right: 0px;
-   	top: 0px;
-   	background-color: #333;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	background-color: #333;
 	color: white;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
 	outline: none;
 	font-family: "Rentukka";
-		    
-
+	border: none
 }
-
 
 input[type="submit"]:hover {
 	background: #111;
 	outline: none;
 }
-
-.label {
-	
-	font-family: "Yikes" !important;
-	font-size: 18px;
-	font-color: "black";
-}
-
-
-
-
-
 
 
