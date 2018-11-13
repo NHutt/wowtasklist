@@ -76,7 +76,7 @@ body {
 		<form th:action="@{login}" method="post">
 		
 			<div th:if="${param.error}">
-	            <a>Invalid username or password :(</a>
+	            <a style="text-decoration: none; pointer-events:none;">Invalid username or password :(</a>
 	            <div style="clear: both; display: block; height: 30px; width: 100px"></div>
 	        </div>
 		
@@ -97,8 +97,10 @@ body {
 		
         </form>
         
-        <div th:if="${param.logout}"><a>You have been logged out</a><br><a>Bye bye o/</a></div>
-        
+        <div th:if="${param.logout}">
+	        <a style="text-decoration: none; pointer-events: none;">You have been logged out</a>
+	        <br>
+	        <a style="text-decoration: none; pointer-events: none;">Bye bye o/</a></div>
         </div>
         </div>
         </div>

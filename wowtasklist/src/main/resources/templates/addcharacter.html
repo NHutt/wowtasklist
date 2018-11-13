@@ -76,7 +76,10 @@ body {
 
 
 		<div>
-			<h1 class="h1">New Character</h1>
+			<h1 class="h1New">New</h1>
+		</div>
+		<div>
+			<h1 class="h1Character">Character</h1>
 		</div>
 		<div>
 			<h3 class="h3" th:inline="text">Altoholism, huh?</h3>
@@ -96,9 +99,10 @@ body {
 			<div class="form-group">
 			<label for="name">Name</label>
 			<input type="text" class="form-control" id="name" th:field="*{name}" />
-			<a th:if="${#fields.hasErrors('name')}"th:errors="*{name}">Please fill this field</a>
+			<a style="text-decoration: none; pointer-events:none;" th:if="${#fields.hasErrors('name')}"th:errors="*{name}"></a>
+			<div th:if="${#fields.hasErrors('name')}" style="clear: both; display: block; height: 30px; width: 100px"></div>
 			</div>
-
+		
 			<div class="form-group">
 			<label for="className">Class</label>
 			<input type="text" class="form-control" id="className" th:field="*{className}" />

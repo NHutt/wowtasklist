@@ -97,7 +97,8 @@ body {
 			<div class="form-group">
 				<label for="description">Description</label>
 				<textarea rows="4" cols="50" name="description" class="form-control" th:field="*{description}" id="decription"></textarea>
-				<a th:if="${#fields.hasErrors('description')}"th:errors="*{description}"></a>
+				<a style="text-decoration: none; pointer-events:none;" th:if="${#fields.hasErrors('description')}"th:errors="*{description}"></a>
+				<div th:if="${#fields.hasErrors('description')}" style="clear: both; display: block; height: 30px; width: 100px"></div>
 			</div>
 			
 			

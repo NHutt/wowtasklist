@@ -112,8 +112,37 @@ li a:hover {
 	font-family: "Bakery";
 	font-size: 235px;
 	margin-bottom: -140px;
-	margin-left: 200px;
+	margin-left: 190px;
 	margin-top: 70px;
+}
+
+.h1Character {
+	font-family: "Bakery";
+	font-size: 235px;
+	margin-bottom: -100px;
+	margin-left: 160px;
+	margin-top: 70px;
+	line-height: 90%;
+}
+
+.h1Characters {
+	font-family: "Bakery";
+	font-size: 235px;
+	margin-bottom: -100px;
+	margin-left: 130px;
+	margin-top: 70px;
+	line-height: 90%;
+}
+
+
+
+.h1New {
+	font-family: "Bakery";
+	font-size: 235px;
+	margin-bottom: -140px;
+	margin-left: 340px;
+	margin-top: 70px;
+	line-height: 90%;
 }
 
 .h3 {
