@@ -41,6 +41,12 @@ public class TaskController {
         return "login";
     }
     
+	// /tasklist oletussivuksi
+    @RequestMapping(value="/index")
+    public String index() {	
+        return "tasklist";
+    }
+    
     // REST-palvelu, joka palauttaa kaikki tehtävät
     @RequestMapping(value="/tasks", method = RequestMethod.GET)
     public @ResponseBody List<Task> taskListRest() {	
