@@ -85,9 +85,17 @@ public class TaskController {
 	
 	/** tallentaa uuden tai päivitettävän tehtävän tiedot ja palaa listaukseen **/
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@Valid Task task, BindingResult bindingResult){
+    public String save(@Valid Task task, BindingResult bindingResult, Model model){
     	if (bindingResult.hasErrors()) {
-    		return "addtask";
+    		model.addAttribute("characters", characterRepository.findAll());
+    		if (task.getTaskId() != null) {
+    			
+    			return "edittask";
+    			
+    		} else {
+    			
+    			return "addtask";
+    		}
     	}
     	
     	Zone zone = task.getZone();

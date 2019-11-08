@@ -47,11 +47,18 @@ public class CharacterController {
         
 	}
 	
-	/** tallentaa hahmon tiedot ja palaa listaukseen **/
+	/** tallentaa uuden tai päivitettävän hahmon tiedot ja palaa listaukseen **/
     @RequestMapping(value = "/savecharacter", method = RequestMethod.POST)
     public String saveCharacter(@Valid Character character, BindingResult bindingResult){
     	if (bindingResult.hasErrors()) {
-    		return "addcharacter";
+    		if (character.getCharacterId() != null) {
+    			
+    			return "editcharacter";
+    			
+    		} else {
+    			
+    			return "addcharacter";
+    		}
     	}
     	
         characterRepository.save(character);
